@@ -2,7 +2,7 @@
 import { useState,useContext,useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
 import { ethers } from "ethers";
-import abi from "../utils/abi.json"
+import {abi} from "../utils/abi"
 import { 
   IHybridPaymaster, 
   SponsorUserOperationDto,
@@ -22,7 +22,7 @@ import {
 } from '@biconomy/paymaster'
 import { ECDSAOwnershipValidationModule, DEFAULT_ECDSA_OWNERSHIP_MODULE } from "@biconomy/modules";
 
-const nftAddress = "0x0a7755bDfb86109D9D403005741b415765EAf1Bc"
+const nftAddress = "0xc8f929C3e35F5b7761fC5F169215f02AA06B4C5B"
 
 const Minter= () => {
     const [address, setAddress] = useState("")
@@ -32,13 +32,13 @@ const Minter= () => {
   const [publicAddress,setPublicAdress]=useState('')
  const magic = useMagicContext()
   const bundler= new Bundler({
-    bundlerUrl: "https://bundler.biconomy.io/api/v2/{chain-id-here}/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",    
-    chainId: 80001,
+    bundlerUrl: "https://bundler.biconomy.io/api/v2/84531/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",    
+    chainId: ChainId.BASE_GOERLI_TESTNET,
     entryPointAddress: DEFAULT_ENTRYPOINT_ADDRESS,
   })
   
   const paymaster  = new BiconomyPaymaster({
-    paymasterUrl: "https://paymaster.biconomy.io/api/v1/80001/DftNwkHsg.bc57aa1f-951f-4da2-82b3-168a81b27573"
+    paymasterUrl: "https://paymaster.biconomy.io/api/v1/84531/6I1OwIMmr.0c5f6fb5-0857-4fe1-a613-4ffe5e799b03"
   })
   useEffect(()=>{
     try {
@@ -51,30 +51,35 @@ const Minter= () => {
             console.log("home")
           const userAddress = publicAddress;
           
-          const magic = new Magic('pk_live_F8BA0E6996209A77', {
+          const magic2 = new Magic('pk_live_555823115CD31C6D', {
             network: {
                 rpcUrl: 'https://goerli.base.org', // or https://matic-mumbai.chainstacklabs.com for testnet
-                chainId: 84531 // or 80001 for polygon testnet
+                chainId: ChainId.BASE_GOERLI_TESTNET // or 80001 for polygon testnet
             }
           });
-          const web3Provider = await magic.wallet.getProvider()
+          const web3Provider = new ethers.providers.Web3Provider(
+            magic2.rpcProvider,
+            "any"
+          );
+          console.log("provider",web3Provider)
           setProvider(web3Provider);
           const module = await ECDSAOwnershipValidationModule.create({
             signer: web3Provider.getSigner(),
             moduleAddress: DEFAULT_ECDSA_OWNERSHIP_MODULE
             })
             let biconomySmartAccount = await BiconomySmartAccountV2.create({
-              chainId: ChainId.POLYGON_MUMBAI,
+              chainId: ChainId.BASE_GOERLI_TESTNET,
               bundler: bundler, 
               paymaster: paymaster,
               entryPointAddress: DEFAULT_ENTRYPOINT_ADDRESS,
               defaultValidationModule: module,
               activeValidationModule: module
             })
+            console.log(await biconomySmartAccount.getAccountAddress())
             setAddress( await biconomySmartAccount.getAccountAddress())
             setSmartAccount(biconomySmartAccount)
             setLoading(false)
-            console.log(smartAccount)
+            console.log(biconomySmartAccount)
           }
           getData()
     } catch (error) {
@@ -89,6 +94,7 @@ const Minter= () => {
       abi,
       provider,
     )
+
     try {
         toast.info('Minting your NFT...', {
             position: "top-right",
@@ -102,7 +108,7 @@ const Minter= () => {
             });
 
       const minTx = await contract.populateTransaction.safeMint(address);
-      console.log(minTx.data);
+      console.log("mint data",minTx.data);
       const tx1 = {
         to: nftAddress,
         data: minTx.data,

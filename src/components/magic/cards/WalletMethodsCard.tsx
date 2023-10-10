@@ -13,7 +13,7 @@ interface Props {
 
 const WalletMethods = ({ setAccount }: Props) => {
   return (
-    <Card>
+    <Card >
       <CardHeader id="wallet-methods">Wallet Methods</CardHeader>
       <ShowUI />
       <Divider />

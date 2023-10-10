@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useMagicContext } from '@/components/magic/MagicProvider';
+import Disconnect from "../magic/wallet-methods/Disconnect";
 const pages = [
   ["Profile", "/profile"],
   ["Services", "/services"],
@@ -52,7 +53,6 @@ function ResponsiveAppBar() {
   const handleLogout = async (state:string)=>{
      if(state=='logout')
      await magic?.wallet.disconnect()
-
   };
 
   return (
@@ -197,6 +197,7 @@ function ResponsiveAppBar() {
                   </MenuItem>
                 </Link>
               ))}
+              
             </Menu>
           </Box>
         </Toolbar>

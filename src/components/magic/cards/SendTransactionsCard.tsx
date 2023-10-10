@@ -20,10 +20,16 @@ const SendTransaction = () => {
   const [hash, setHash] = useState('');
   const [toAddressError, setToAddressError] = useState(false);
   const [amountError, setAmountError] = useState(false);
-  const publicAddress = localStorage.getItem('user');
-  const network = localStorage.getItem('network');
+  const [publicAddress,setPublicAdress]=useState<string|null>()
   const tokenSymbol = getNetworkToken();
 
+  useEffect(()=>{
+    const getLocal = async ()=>{
+      const publicAdd =  localStorage.getItem('user');
+      setPublicAdress(publicAdd)
+    }
+    getLocal()
+   },[])
   useEffect(() => {
     setDisabled(!toAddress || !amount);
     setAmountError(false);

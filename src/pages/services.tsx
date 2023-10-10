@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import Minter from '../components/Minter.jsx'
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
 import SendTransaction from "@/components/magic/cards/SendTransactionsCard";
@@ -34,7 +35,10 @@ function Services() {
           {products.map((product) => {
             return <ShopProduct {...product} />;
           })}
+
+         
         </Box>
+        { <Minter/>}
       </div>
       <Box></Box>
     </>

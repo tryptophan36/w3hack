@@ -23,8 +23,8 @@ const MagicProvider = ({ children }: { children: React.ReactNode }) => {
     if (process.env.NEXT_PUBLIC_MAGIC_API_KEY) {
       const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY as string, {
         network: {
-          rpcUrl: 'https://rpc-mumbai.maticvigil.com/',
-          chainId: getChainId(),
+          rpcUrl: 'https://goerli.base.org/',
+          chainId: 84531,
         },
       });
 

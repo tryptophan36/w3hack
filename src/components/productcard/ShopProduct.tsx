@@ -127,12 +127,16 @@ console.log("id",props.id)
           flexDirection="column"
           alignItems="center"
           width="100%"
+          padding="0.5rem"
         >
-          <Typography sx={{ fontSize: 14 }} color="black" gutterBottom>
+          <Typography variant="h6"
+           sx={{ fontSize: 14,
+             textOverflow:"auto"
+           }} color="black" gutterBottom>
             {doc?.creator}
           </Typography>
           <img
-            style={{ height: "10rem", width: "10 rem", margin: "1rem 0" }}
+            style={{ height: "13rem", width: "11rem", margin: "0" }}
             src={doc?.documentMetaData}
             alt=""
           />
@@ -141,7 +145,8 @@ console.log("id",props.id)
                sign
               </Button>}
           </Box>
- {    !doc?.isSigned &&  <Typography color="red">Not signed by all Signers</Typography>}
+     { !doc?.isSigned &&  <Typography margin="0.5rem" color="red">Not Signed By All Signers</Typography>}
+     {doc?.isSigned && <Typography margin="0.5rem" color="green">Signed By All Signers</Typography> }
         </Box>
       </CardContent>
     </Card>

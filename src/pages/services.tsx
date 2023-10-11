@@ -1,4 +1,5 @@
 import React from "react";
+import CircularLoader from "@/components/CircularLoader";
 import { useEffect, useState } from "react";
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
@@ -12,6 +13,8 @@ function Services() {
   const [account, setAccount] = useState<string | null>(null);
   const [meta, setMeta] = useState<string | null>(null);
   const [signer, setSigner] = useState<string | null>(null);
+  const [isLoader,setIsLoader]=useState(false)
+  const [isLoader2,setIsLoader2]=useState(false)
   useEffect(() => {
     const user = localStorage.getItem('user');
     setAccount(user);
@@ -59,12 +62,22 @@ function Services() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
+  //fxns
   const handleAddSigner = async()=>{
+    setIsLoader(true)
+    setTimeout(()=>{
+     setIsLoader(false)
+    },5000)
     const res= await AddSigner(magic,0,signer)
     console.log(res)
   }
 
   const create = async()=>{
+    setIsLoader2(true)
+    setTimeout(()=>{
+     setIsLoader2(false)
+    },5000)
     const res= await createDoc(magic,meta,account)
     console.log(res)
 
@@ -72,10 +85,11 @@ function Services() {
   return (
     <>
       <Navbar />
+
       <div className="home-page">
         <Button sx={{border:"2px solid black",background:"white",marginTop:"1rem"}}
          onClick={handleOpen}
-        >Create Card</Button>
+        >Create Document</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -83,27 +97,30 @@ function Services() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-
-            <Box>
+            <Box height="100%" display="flex" flexDirection="column" >
+            <Typography variant="h6" textAlign="center" margin={"0.5rem 0"}>Create Document</Typography>
             <Box display="flex" >
+            { <CircularLoader isLoader={isLoader2}/>}
          <TextField id="outlined-basic" label="Name" onChange={(e)=>setMeta(e.target.value)}variant="outlined" />
-            <Button sx={{border:"1px solid black",}} onClick={create}>Submit</Button>
+            <Button sx={{border:"1px solid black"}} onClick={create}>Submit </Button>
             </Box>
-          <Box>
-          <TextField id="outlined-basic" label="Name" onChange={(e)=>setSigner(e.target.value)}variant="outlined" />
-          <Button sx={{border:"1px solid black"}}
+            <Typography variant="h6" textAlign="center" margin={"3rem 0 1rem 0"}>Add Signer</Typography>
+          <Box display="flex" marginTop="">
+          <TextField id="outlined-basic" label="Address" onChange={(e)=>setSigner(e.target.value)}variant="outlined" />
+          <Button size="small" sx={{border:"1px solid black"}}
            onClick={handleAddSigner}
           >Add Signers</Button>
+          
           </Box>
-
+          { <CircularLoader isLoader={isLoader}/>}
             </Box>
           </Box>
         </Modal>
 
         <Box >
         </Box>
-        {signedData.length>0 && <Box sx={{border:"1px solid black",width:"100%",background:"black", margin:"1rem"}}>
-        <Typography variant='h3' textAlign="center" color="white">Signed Cards</Typography>
+        {signedData.length>0 && <Box sx={{width:"100%", margin:"1rem"}}>
+        <Typography variant='h3' textAlign="center" color="White">Signed Documents</Typography>
         <Box
           sx={{
             display:"flex",
@@ -115,8 +132,8 @@ function Services() {
         </Box>
         </Box>}
 
-{   unsignedData.length>0 &&     <Box sx={{border:"1px solid black",width:"100%",background:"black"}}>
-        <Typography variant='h3' textAlign="center" color="white">Unsigned Cards</Typography>
+{  unsignedData.length>0 &&     <Box sx={{width:"100%"}}>
+        <Typography variant='h3' textAlign="center" color="black">Unsigned Documents</Typography>
         <Box
           sx={{
             display:"flex",

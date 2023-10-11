@@ -9,19 +9,9 @@ import axios from 'axios';
 import { createAndSignPresentationJWT, EthrDIDMethod } from "@jpmorganchase/onyx-ssi-sdk"
 
 function Services() {
-  const [products, setProducts] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchAllData = async () => {
-      fetch("https://fakestoreapi.com/products?limit=6")
-        .then((res) => res.json())
-        .then((data) =>{ 
-          console.log(data)
-          setProducts(data)});
-     
-    };
-    fetchAllData();
-  }, []);
+
+  
 
   const [verified,setVerified]= useState(false)
   React.useEffect(()=>{
@@ -94,10 +84,7 @@ function Services() {
             justifyContent:"center"
           }}
         >
-          {products.map((p) => {
-            
-            return <ShopProduct shopData={p} verified={verified}/>;
-          })}
+    
 
          
         </Box>

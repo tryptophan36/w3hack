@@ -4,12 +4,12 @@ import Navbar from '../components/navbar/Navbar'
 import ShowUI from '@/components/magic/wallet-methods/ShowUi';
 import { useMagicContext } from '@/components/magic/MagicProvider';
 import UserInfo from '@/components/magic/cards/UserInfoCard';
+import {getDoc,getUnsignedDoc} from "../utils/contractMethods.js"
 function Profile  ()  {
   const [account, setAccount] = useState<string | null>(null);
   const [email,setEmail]=useState<string|undefined>("");
   const { magic } = useMagicContext();
-  const [disabled, setDisabled] = useState(false);
-  const [showUIError, setShowUIError] = useState(false);
+
   useEffect(() => {
     const user = localStorage.getItem('user');
     setAccount(user);
@@ -20,13 +20,23 @@ function Profile  ()  {
       setEmail(email?.split('@')[0])
       
     } catch (error) {
-      setDisabled(false);
+      // setDisabled(false);
       console.error(error);
     }
     }
     checkAuth()
     
   }, []);
+
+  useEffect(()=>{
+    const getUnsign = async()=>{
+      const doc = await getUnsignedDoc(magic,account)
+      return doc
+
+
+    }
+    getUnsign().then(v=>console.log("unsigned doc",v))
+  },[account])
   return (
 
     <>
@@ -39,6 +49,8 @@ function Profile  ()  {
    
     </Box>
     {account && <UserInfo setAccount={setAccount}/>}
+
+
     </div>
     </>
   )

@@ -1,44 +1,29 @@
-This scaffold is meant to help you bootstrap your own projects with Magic's [Universal Wallet](https://magic.link/docs/connect/overview). Magic is a developer SDK that integrates with your application to enable passwordless Web3 onboarding.
+***What is it ?***
 
-The folder structure of this scaffold is designed to encapsulate all things Magic into one place so you can easily add or remove components and functionality. For example, all Magic-specific components are in the `src/components/magic` directory while generic UI components are in the `src/components/ui` directory.
+Our platform operates as a secure and user-centric environment, significantly improving document interactions. We employ the Onyx SSI SDK for Document Verification, guaranteeing the legitimacy of signed documents by verifying users' identity and credentials. This enhancement in security fosters trust among users.
 
-## Next.js
+Users can Create new documents to be signed, add signers to them, sign documents after verifying their identity ,track their status.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+In essence, our platform provides a secure and efficient way for users to sign documents, verify their identity, and carry out transactions, all while delivering a seamless and trusted user experience.
 
-## Getting Started
+***Tech Used***
+1. *Onyx SSI SDK for Document Verification:*
+    - The Onyx SSI SDK is used to verify that users signing the document have presented the correct verifiable presentation for Verified Name. This ensures the authenticity of the user's identity and credentials, enhancing the security and trustworthiness of the signed documents.
+    - By integrating the Onyx SSI SDK, we've leveraged Self-Sovereign Identity (SSI) principles to establish a secure and privacy-preserving way of verifying user identities and their claims.
+2. *Magic Link SDK for Onboarding:*
+    - The Magic Link SDK is utilized for onboarding users using their social identity, making it easy for users to sign up and log in to our platform.
+    - This simplifies the onboarding process and enhances user experiences by providing a convenient and secure authentication method.
+3. *Biconomy SDK for Enhanced User Experience:*
+    - The Biconomy SDK is integrated into our platform to provide various features, including Social Login, Paymaster, and Session Keys.
+    - Social Login allows users to log in using their social media accounts, reducing friction during the onboarding process.
+    - Paymaster facilitates gasless transactions, by sponsoring gas payments for various functions like createDoc, signDocument, addSigner.
+    - Session Keys Module ensures generating of Sessions and saving this enables user from not signing message again and again.
 
-First, run the development server:
+***Images***
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+![Screenshot (5)](https://github.com/tryptophan36/w3hack/assets/100468551/f5c26d6d-5b30-4939-ad1f-1f49df2fbc07)
+![Screenshot (1)](https://github.com/tryptophan36/w3hack/assets/100468551/56643498-2f85-405a-9a1f-27f6c6dc3035)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Screenshot (3)](https://github.com/tryptophan36/w3hack/assets/100468551/b5b65066-9242-49e8-b986-bc53ba7cc1a0)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -133,7 +133,7 @@ console.log("id",props.id)
           </Typography>
           <img
             style={{ height: "10rem", width: "10 rem", margin: "1rem 0" }}
-            src={`https://ipfs.io/ipfs/${doc?.documentMetaData}`}
+            src={doc?.documentMetaData}
             alt=""
           />
           <Box>

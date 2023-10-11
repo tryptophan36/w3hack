@@ -23,6 +23,11 @@ export const abi=[
 				"internalType": "string",
 				"name": "_doc",
 				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
 			}
 		],
 		"name": "CreateDocument",
@@ -36,6 +41,11 @@ export const abi=[
 				"internalType": "uint256",
 				"name": "_docId",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "signer",
+				"type": "address"
 			}
 		],
 		"name": "signDocument",

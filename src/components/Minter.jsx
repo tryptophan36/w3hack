@@ -1,19 +1,16 @@
 
 import { useState,useContext,useEffect } from 'react';
 import {Alert,Modal,Box,Button} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+
 import styles from '@/styles/Home.module.css'
 import { ethers } from "ethers";
 import {abi} from "../utils/abi"
 import { 
-  IHybridPaymaster, 
-  SponsorUserOperationDto,
+
   PaymasterMode
 } from "@biconomy/paymaster"
-import { BiconomySmartAccount } from "@biconomy/account"
-import AppContext from '../context/AppContext';
-import { toast, ToastContainer } from "react-toastify";
-import { Magic } from 'magic-sdk';
+
+
 import { useMagicContext } from '@/components/magic/MagicProvider';
 import { IBundler, Bundler } from '@biconomy/bundler'
 import { BiconomySmartAccountV2, DEFAULT_ENTRYPOINT_ADDRESS } from "@biconomy/account"

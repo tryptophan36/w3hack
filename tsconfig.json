@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/context/AppContext.jsx", "src/components/productcard/ShopProduct.jsx", "src/components/Minter.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/context/AppContext.jsx", "src/components/productcard/ShopProduct.jsx", "src/components/Minter.jsx", "src/utils/contractMethods.js"],
   "exclude": ["node_modules"]
 }

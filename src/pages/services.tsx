@@ -69,7 +69,7 @@ function Services() {
     setTimeout(()=>{
      setIsLoader(false)
     },5000)
-    const res= await AddSigner(magic,0,signer)
+    const res= await AddSigner(magic,4,signer)
     console.log(res)
   }
 

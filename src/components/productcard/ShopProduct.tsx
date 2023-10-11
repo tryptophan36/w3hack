@@ -28,6 +28,8 @@ import {
 export default function BasicCard(props:any){
 console.log("id",props.id)
   const { magic } = useMagicContext();
+  const [account, setAccount] = useState<string | null>(null);
+
 
   // const [title,setTitle] = useState("")
   // const [image,setImage] = useState("")
@@ -46,7 +48,11 @@ console.log("id",props.id)
 
     getDocument().then(v=>setDoc(v))
   },[])
-
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setAccount(user);
+  }, []);
+ 
   console.log("doc",doc)
 
   // const [verifiedSign, setVerifiedSign] = useState(false);
@@ -109,7 +115,7 @@ console.log("id",props.id)
     console.log("sign")
     const verified = await Verify()
     if(verified){
-      await signDoc(magic,props.id)
+      await signDoc(magic,props.id,account)
 
 
     }
@@ -120,7 +126,7 @@ console.log("id",props.id)
 
 
   return (
-    <Card sx={{ width: "25%", margin: "1rem", Height: "200px" }}>
+    <Card sx={{ width: "30%", margin: "1rem", Height: "200px" }}>
       <CardContent>
         <Box
           display="flex"

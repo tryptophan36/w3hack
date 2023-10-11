@@ -2,6 +2,24 @@ export const abi=[
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_docId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_signer",
+				"type": "address"
+			}
+		],
+		"name": "addSigner",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_doc",
 				"type": "string"
@@ -26,34 +44,8 @@ export const abi=[
 			},
 			{
 				"internalType": "address",
-				"name": "_signer",
+				"name": "signer",
 				"type": "address"
-			}
-		],
-		"name": "addSigner",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_doc",
-				"type": "string"
-			}
-		],
-		"name": "CreateDocument",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_docId",
-				"type": "uint256"
 			}
 		],
 		"name": "signDocument",
@@ -187,24 +179,6 @@ export const abi=[
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_docId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "signer",
-				"type": "address"
-			}
-		],
-		"name": "signDocument",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

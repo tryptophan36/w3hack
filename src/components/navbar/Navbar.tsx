@@ -18,11 +18,11 @@ import { useMagicContext } from '@/components/magic/MagicProvider';
 import Disconnect from "../magic/wallet-methods/Disconnect";
 const pages = [
   ["Profile", "/profile"],
-  ["Services", "/services"],
+  ["Documents", "/services"],
 ];
 const settings = [
   ["Profile", "profile"],
-  ["Serivces", "/services"],
+  ["Documents", "/services"],
   ["Logout", "/"],
 ];
 
@@ -76,7 +76,7 @@ function ResponsiveAppBar() {
                 },
               }}
             >
-              W3Hack
+              DocBox
             </Typography>
           </Link>
 
@@ -143,7 +143,7 @@ function ResponsiveAppBar() {
                   },
                 }}
               >
-                W3Hack
+                DocBox
               </Typography>
             </Link>
           </Typography>

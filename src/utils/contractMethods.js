@@ -145,7 +145,7 @@ const smartAccount = await getAccount(magic)
   console.log("txHash", receipt.transactionHash);
     
 }
-export const signDoc = async (magic,_docid)=>{
+export const signDoc = async (magic,_docid,signer)=>{
   const provider = new ethers.providers.Web3Provider(
     (magic )?.rpcProvider,
   "any"
@@ -156,7 +156,7 @@ const contract = new ethers.Contract(
     provider,
   )
 const smartAccount = await getAccount(magic)
-  const minTx = await contract?.populateTransaction.signDocument(_docid);
+  const minTx = await contract?.populateTransaction.signDocument(_docid,signer);
   console.log("create data",minTx.data);
   const tx1 = {
     to: contractAddress,

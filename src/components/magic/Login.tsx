@@ -5,6 +5,7 @@ import Links from './Links';
 import ConnectButton from '../ui/ConnectButton';
 import Spacer from '../ui/Spacer';
 import { useMagicContext } from '@/components/magic/MagicProvider';
+import { Typography } from '@mui/material';
 
 
 interface Props {
@@ -41,7 +42,8 @@ const [disabled, setDisabled] = useState(false);
   return (
     
       <div className="login-page">
-      <AppHeader />
+      {/* <AppHeader /> */}
+      <Typography color={'white'} variant='h3' textAlign={'center'}>DocBox</Typography>
       <Spacer size={32} />
       <Spacer size={20} />
       <ConnectButton onClick={connect} disabled={disabled} />

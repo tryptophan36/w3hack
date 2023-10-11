@@ -1,13 +1,12 @@
 
 import { useState,useContext,useEffect } from 'react';
 import {Alert,Modal,Box,Button} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+
 import styles from '@/styles/Home.module.css'
 import { ethers } from "ethers";
 import {abi} from "../utils/abi"
 import { 
-  IHybridPaymaster, 
-  SponsorUserOperationDto,
+
   PaymasterMode
 } from "@biconomy/paymaster"
 

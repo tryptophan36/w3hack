@@ -15,7 +15,7 @@ import {
 } from '@biconomy/paymaster'
 import { ECDSAOwnershipValidationModule, DEFAULT_ECDSA_OWNERSHIP_MODULE } from "@biconomy/modules";
 const contractAddress = "0x212F9F7c094Ab2A82f75b51939Ad0b7D66c57125"
-const {magic} =  useMagicContext()
+
 const bundler= new Bundler({
     bundlerUrl: "https://bundler.biconomy.io/api/v2/80001/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",    
     chainId: ChainId.POLYGON_MUMBAI,
@@ -26,7 +26,7 @@ const bundler= new Bundler({
     paymasterUrl: "https://paymaster.biconomy.io/api/v1/80001/uOPW_de8t.e3b4e54a-2e31-438a-9cab-057250c4b431"
   })
 
-export const getUnsignedDoc = async (address)=>{
+export const getUnsignedDoc = async (magic,address)=>{
     const provider = new ethers.providers.Web3Provider(
         (magic )?.rpcProvider,
       "any"
@@ -37,14 +37,14 @@ export const getUnsignedDoc = async (address)=>{
         provider,
       )
 
-    const docs = await contract.getDocumentsUnSignedByUser(address)
+    const docs = await contract?.getDocumentsUnSignedByUser(address)
     return docs
 
 }
 
 
 
-export const getSignedDoc =async (address)=>{
+export const getSignedDoc =async (magic,address)=>{
     const provider = new ethers.providers.Web3Provider(
         (magic )?.rpcProvider,
       "any"
@@ -55,11 +55,11 @@ export const getSignedDoc =async (address)=>{
         provider,
       )
 
-    const docs = await contract.getDocumentsSignedByUser(address)
+    const docs = await contract?.getDocumentsSignedByUser(address)
     return docs
     
 }
-export const createDoc =async (_doc)=>{
+export const createDoc =async (magic,_doc)=>{
     const provider = new ethers.providers.Web3Provider(
         (magic )?.rpcProvider,
       "any"
@@ -69,8 +69,8 @@ export const createDoc =async (_doc)=>{
         abi,
         provider,
       )
-    const smartAccount = await getAccount()
-      const minTx = await contract.populateTransaction.CreateDocument(_doc);
+    const smartAccount = await getAccount(magic)
+      const minTx = await contract?.populateTransaction.CreateDocument(_doc);
       console.log("create data",minTx.data);
       const tx1 = {
         to: contractAddress,
@@ -102,7 +102,7 @@ export const createDoc =async (_doc)=>{
 
     
 }
-export const AddSigner = async (_docid,signer)=>{
+export const AddSigner = async (magic,_docid,signer)=>{
   const provider = new ethers.providers.Web3Provider(
     (magic )?.rpcProvider,
   "any"
@@ -113,7 +113,7 @@ const contract = new ethers.Contract(
     provider,
   )
 const smartAccount = await getAccount()
-  const minTx = await contract.populateTransaction.addSigner(_docid,signer);
+  const minTx = await contract?.populateTransaction.addSigner(_docid,signer);
   console.log("create data",minTx.data);
   const tx1 = {
     to: contractAddress,
@@ -143,7 +143,7 @@ const smartAccount = await getAccount()
   console.log("txHash", receipt.transactionHash);
     
 }
-export const signDoc = async (_docid)=>{
+export const signDoc = async (magic,_docid)=>{
   const provider = new ethers.providers.Web3Provider(
     (magic )?.rpcProvider,
   "any"
@@ -153,8 +153,8 @@ const contract = new ethers.Contract(
     abi,
     provider,
   )
-const smartAccount = await getAccount()
-  const minTx = await contract.populateTransaction.signDocument(_docid);
+const smartAccount = await getAccount(magic)
+  const minTx = await contract?.populateTransaction.signDocument(_docid);
   console.log("create data",minTx.data);
   const tx1 = {
     to: contractAddress,
@@ -184,7 +184,7 @@ const smartAccount = await getAccount()
   console.log("txHash", receipt.transactionHash);
     
 }
-export const getDoc = async(id)=>{
+export const getDoc = async(magic,id)=>{
   const provider = new ethers.providers.Web3Provider(
     (magic )?.rpcProvider,
   "any"
@@ -195,13 +195,13 @@ const contract = new ethers.Contract(
     provider,
   )
 
-const docs = await contract.getDoc(id)
+const docs = await contract?.getDoc(id)
 return docs
     
 }
 
 
-const getAccount = async ()=>{
+const getAccount = async (magic)=>{
            
 
     const web3Provider = new ethers.providers.Web3Provider(

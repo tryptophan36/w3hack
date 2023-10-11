@@ -1,29 +1,28 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
+import image1 from "../../public/favicon.ico"
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
 import SendTransaction from "@/components/magic/cards/SendTransactionsCard";
 
-import { Box, Container } from "@mui/material";
+import { Box, Container,Typography } from "@mui/material";
 import axios from 'axios';
 import { createAndSignPresentationJWT, EthrDIDMethod } from "@jpmorganchase/onyx-ssi-sdk"
 
 function Services() {
-  const [products, setProducts] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchAllData = async () => {
-      fetch("https://fakestoreapi.com/products?limit=6")
-        .then((res) => res.json())
-        .then((data) =>{ 
-          console.log(data)
-          setProducts(data)});
-     
-    };
-    fetchAllData();
-  }, []);
-
+  // const [products, setProducts] = useState<any[]>([]);
+  // useEffect(() => {
+  //   const fetchAllData = async () => {
+  //     fetch("https://fakestoreapi.com/products?limit=6")
+  //       .then((res) => res.json())
+  //       .then((data) =>{ 
+  //         console.log(data)
+  //         setProducts(data)});
+  //   };
+  //   fetchAllData();
+  // }, []);
+   const sampleCard = {title:"card1",image:image1,address:"####"}
+   const obj={cardData:sampleCard,verified:true}
   const [verified,setVerified]= useState(false)
   React.useEffect(()=>{
     const config = {
@@ -86,21 +85,22 @@ function Services() {
       <Navbar />
       <div className="home-page">
         <Box m="2.5rem">
-          <SendTransaction />
+          
         </Box>
+        <Box sx={{border:"1px solid black",width:"100%"}}>
+        <Typography variant='h3' textAlign="center" color="grey">Signed</Typography>
         <Box
           sx={{
             display:"flex",
             flexWrap:"wrap",
-            justifyContent:"center"
+            justifyContent:"flex-start",
           }}
         >
-          {products.map((p) => {
-            
-            return <ShopProduct shopData={p} verified={verified}/>;
-          })}
+          { 
+           
+          <ShopProduct {...obj}/>}
 
-         
+        </Box>
         </Box>
         
       </div>

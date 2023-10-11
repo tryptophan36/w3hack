@@ -50,8 +50,7 @@ const Minter= (verified) => {
   useEffect(()=>{
     try {
         const getData = async ()=>{
-           
-
+          
           const web3Provider = new ethers.providers.Web3Provider(
             magic?.rpcProvider,
             "any"
@@ -133,7 +132,7 @@ const Minter= (verified) => {
 
       }
       else{
-        
+
       }
     } catch (err) {
       console.error(err);
@@ -165,7 +164,7 @@ const Minter= (verified) => {
       href={`https://testnets.opensea.io/${address}`} style={{}}>Click To view Your Gasless Transaction</a>
       
       </Alert>}
-      <Button sx={{background:"black"}}  onClick={handleClose}>Close</Button>
+      <Button sx={{background:"black"}}  onClick={()=>{handleClose()}}>Close</Button>
   </Box>
 </Modal>
       </>

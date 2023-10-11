@@ -24,25 +24,21 @@ const bull = (
 );
 
 export default function BasicCard({
-  shopData,
-  verified,
+  cardData,
+  verified
 }: {
-  shopData: any;
+  cardData: any;
   verified: boolean;
 }) {
   const {
     title,
-    price,
     image,
-    description,
-    id,
+    address,
   }: {
     title: string;
-    price: number;
     image: string;
-    description: string;
-    id: number;
-  } = shopData;
+    address:string;
+  } = cardData;
   const [verifiedBal, setVerifiedBal] = useState(false);
   const config = {
     privateKey:
@@ -117,16 +113,10 @@ export default function BasicCard({
             src={image}
             alt=""
           />
-          <p>${price}</p>
           <Box>
-            <Button size="small">Buy Now</Button>
-             
-              <Button onClick={()=>setup()} size="small">
-                {verified? <Minter verified={setup()}/> :
-                 <CircularLoader/>
-                }
-              </Button>
-  
+              {!verified && <Button onClick={()=>setup()} size="small">
+               sign
+              </Button>}
           </Box>
         </Box>
       </CardContent>

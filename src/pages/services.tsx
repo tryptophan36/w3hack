@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
 import { Box, Container,Typography,Button,Modal,TextField} from "@mui/material";
-import {getUnsignedDoc,getSignedDoc} from "../utils/contractMethods.js"
+import {getUnsignedDoc,getSignedDoc,createDoc,AddSigner} from "../utils/contractMethods.js"
 import { useMagicContext } from '@/components/magic/MagicProvider';
 function Services() {
   const { magic } = useMagicContext();
   const [signedData, setSignedData] = useState<any[]>([]);
   const [unsignedData, setUnsignedData] = useState<any[]>([]);
   const [account, setAccount] = useState<string | null>(null);
+  const [meta, setMeta] = useState<string | null>(null);
+  const [signer, setSigner] = useState<string | null>(null);
   useEffect(() => {
     const user = localStorage.getItem('user');
     setAccount(user);
@@ -45,20 +47,27 @@ function Services() {
   
    const signedCards = signedData?.map(c=>{
     return(
-      <ShopProduct key = {Number(c)} id = {Number(c)}/>
+      <ShopProduct key = {Number(c)} id = {Number(c)}  isPending={false}/>
     )
    })
    const UnsignedCards = unsignedData?.map(c=>{
     return(
-      <ShopProduct key = {Number(c)} id = {Number(c)}/>
+      <ShopProduct key = {Number(c)} id = {Number(c)} isPending={true}/>
     )
    })
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleAddSigner = ()=>{
-    
+  const handleAddSigner = async()=>{
+    const res= await AddSigner(magic,0,signer)
+    console.log(res)
+  }
+
+  const create = async()=>{
+    const res= await createDoc(magic,meta)
+    console.log(res)
+
   }
   return (
     <>
@@ -74,14 +83,19 @@ function Services() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
+
             <Box>
             <Box display="flex" >
-            <TextField id="outlined-basic" label="Name" variant="outlined" />
-            <Button sx={{border:"1px solid black",}}>Submit</Button>
+         <TextField id="outlined-basic" label="Name" onChange={(e)=>setMeta(e.target.value)}variant="outlined" />
+            <Button sx={{border:"1px solid black",}} onClick={create}>Submit</Button>
             </Box>
-          <Button sx={{marginTop:"1rem",border:"1px solid black"}}
+          <Box>
+          <TextField id="outlined-basic" label="Name" onChange={(e)=>setSigner(e.target.value)}variant="outlined" />
+          <Button sx={{border:"1px solid black"}}
            onClick={handleAddSigner}
           >Add Signers</Button>
+          </Box>
+
             </Box>
           </Box>
         </Modal>

@@ -14,7 +14,7 @@ import {
   BiconomyPaymaster,  
 } from '@biconomy/paymaster'
 import { ECDSAOwnershipValidationModule, DEFAULT_ECDSA_OWNERSHIP_MODULE } from "@biconomy/modules";
-const contractAddress = "0x212F9F7c094Ab2A82f75b51939Ad0b7D66c57125"
+const contractAddress = "0x8D492980E78523cBbf2F616Dd531d81d67231476"
 
 const bundler= new Bundler({
     bundlerUrl: "https://bundler.biconomy.io/api/v2/80001/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",    
@@ -112,7 +112,7 @@ const contract = new ethers.Contract(
     abi,
     provider,
   )
-const smartAccount = await getAccount()
+const smartAccount = await getAccount(magic)
   const minTx = await contract?.populateTransaction.addSigner(_docid,signer);
   console.log("create data",minTx.data);
   const tx1 = {

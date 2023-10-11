@@ -122,7 +122,7 @@ export default function BasicCard({
             <Button size="small">Buy Now</Button>
              
               <Button onClick={()=>setup()} size="small">
-                {verified? <Minter/> :
+                {verified? <Minter verified={setup()}/> :
                  <CircularLoader/>
                 }
               </Button>

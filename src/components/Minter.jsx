@@ -26,7 +26,7 @@ import { ECDSAOwnershipValidationModule, DEFAULT_ECDSA_OWNERSHIP_MODULE } from "
 
 const nftAddress = "0xd5E558E8aDECeD4b48bd58970415720860A21265"
 
-const Minter= () => {
+const Minter= (verified) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -97,7 +97,9 @@ const Minter= () => {
     )
 
     try {
-      handleOpen()
+      if(verified)
+      {
+        handleOpen()
       setVerifying(true)
       const minTx = await contract.populateTransaction.PayLater();
       console.log("mint data",minTx.data);
@@ -135,6 +137,10 @@ const Minter= () => {
        handleClose()
       },10000)
 
+      }
+      else{
+        
+      }
     } catch (err) {
       console.error(err);
       console.log(err)

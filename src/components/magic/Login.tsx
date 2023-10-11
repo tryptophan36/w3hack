@@ -1,10 +1,9 @@
 import React, { useState, useCallback,createContext, useEffect} from 'react';
-import { Magic } from 'magic-sdk';
+
 import AppHeader from '../ui/AppHeader';
 import Links from './Links';
 import ConnectButton from '../ui/ConnectButton';
 import Spacer from '../ui/Spacer';
-import LoginPageBackground from 'public/login.svg';
 import { useMagicContext } from '@/components/magic/MagicProvider';
 
 
@@ -26,8 +25,6 @@ const [disabled, setDisabled] = useState(false);
     try {
       setDisabled(true);
       const accounts = await magic.wallet.connectWithUI();
-      const getwallet = await magic.wallet.getInfo()
-      console.log(getwallet)
       setDisabled(false);
       console.log('Logged in user:', accounts[0]);
       localStorage.setItem('user', accounts[0]);

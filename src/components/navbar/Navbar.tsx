@@ -19,7 +19,6 @@ import Disconnect from "../magic/wallet-methods/Disconnect";
 const pages = [
   ["Profile", "/profile"],
   ["Services", "/services"],
-  ["Account", "/account"],
 ];
 const settings = [
   ["Profile", "profile"],

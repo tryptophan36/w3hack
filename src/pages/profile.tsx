@@ -4,7 +4,6 @@ import Navbar from '../components/navbar/Navbar'
 import ShowUI from '@/components/magic/wallet-methods/ShowUi';
 import { useMagicContext } from '@/components/magic/MagicProvider';
 import UserInfo from '@/components/magic/cards/UserInfoCard';
-import {getDoc,getUnsignedDoc} from "../utils/contractMethods.js"
 function Profile  ()  {
   const [account, setAccount] = useState<string | null>(null);
   const [email,setEmail]=useState<string|undefined>("");
@@ -28,15 +27,6 @@ function Profile  ()  {
     
   }, []);
 
-  useEffect(()=>{
-    const getUnsign = async()=>{
-      const doc = await getUnsignedDoc(magic,account)
-      return doc
-
-
-    }
-    getUnsign().then(v=>console.log("unsigned doc",v))
-  },[account])
   return (
 
     <>

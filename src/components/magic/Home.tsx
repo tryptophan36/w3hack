@@ -1,14 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import TableOfContents from '../ui/TableOfContents';
-import AppHeader from '../ui/AppHeader';
+
 import Wallet from './cards/UserInfoCard';
-import WalletMethods from './cards/WalletMethodsCard';
+
 import SendTransaction from './cards/SendTransactionsCard';
 import Links from './Links';
 import Spacer from '../ui/Spacer';
-import HomePageBackground from 'public/main.svg';
+
 import Navbar from '../navbar/Navbar';
-import { Magic } from 'magic-sdk';
 import { useMagicContext } from '@/components/magic/MagicProvider';
 import { IBundler, Bundler } from '@biconomy/bundler'
 import { BiconomySmartAccountV2, DEFAULT_ENTRYPOINT_ADDRESS } from "@biconomy/account"
@@ -27,10 +25,10 @@ interface Props {
 
 export default function Home({ setAccount }: Props) {
   const [address, setAddress] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false);
+
   const [smartAccount, setSmartAccount] = useState<BiconomySmartAccountV2 | null>(null);
   const [provider, setProvider] = useState<ethers.providers.Provider | null>(null)
-  const [publicAddress,setPublicAdress]=useState<string | null>('')
+  
   const { magic } = useMagicContext();
 
   const bundler: IBundler = new Bundler({
@@ -44,15 +42,9 @@ export default function Home({ setAccount }: Props) {
   })
   useEffect(()=>{
     const getData = async ()=>{
-      const getLocal = async ()=>{
-        const publicAddress =  localStorage.getItem('user');
-        setPublicAdress(publicAddress)
-      }
-      getLocal()
-    const userAddress = publicAddress;
-    
-    const magic2= new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY||"")
-    const web3Provider = new ethers.providers.Web3Provider((magic2 as any).rpcProvider,"any");
+
+
+    const web3Provider = new ethers.providers.Web3Provider((magic as any).rpcProvider,"any");
     
     setProvider(web3Provider);
 
@@ -71,7 +63,7 @@ export default function Home({ setAccount }: Props) {
       })
       setAddress( await biconomySmartAccount.getAccountAddress())
       setSmartAccount(biconomySmartAccount)
-      setLoading(false)
+
       console.log(smartAccount)
     }
     getData()

@@ -51,13 +51,7 @@ const Minter= (verified) => {
     try {
         const getData = async ()=>{
            
-          
-          const magic2 = new Magic('pk_live_555823115CD31C6D', {
-            network: {
-                rpcUrl: 'https://goerli.base.org', // or https://matic-mumbai.chainstacklabs.com for testnet
-                chainId: ChainId.BASE_GOERLI_TESTNET // or 80001 for polygon testnet
-            }
-          });
+
           const web3Provider = new ethers.providers.Web3Provider(
             magic?.rpcProvider,
             "any"

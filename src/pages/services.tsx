@@ -1,10 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Minter from '../components/Minter.jsx'
+
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
 import SendTransaction from "@/components/magic/cards/SendTransactionsCard";
-import AppHeader from "@/components/ui/AppHeader";
+
 import { Box, Container } from "@mui/material";
 import axios from 'axios';
 import { createAndSignPresentationJWT, EthrDIDMethod } from "@jpmorganchase/onyx-ssi-sdk"

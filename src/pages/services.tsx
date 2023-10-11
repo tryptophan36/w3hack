@@ -5,7 +5,6 @@ import Navbar from "../components/navbar/Navbar";
 import { Box, Container,Typography,Button,Modal,TextField} from "@mui/material";
 import {getUnsignedDoc,getSignedDoc} from "../utils/contractMethods.js"
 import { useMagicContext } from '@/components/magic/MagicProvider';
-
 function Services() {
   const { magic } = useMagicContext();
   const [signedData, setSignedData] = useState<any[]>([]);
@@ -15,8 +14,7 @@ function Services() {
     const user = localStorage.getItem('user');
     setAccount(user);
   }, []);
-
-  
+ 
   useEffect(()=>{
     const getUnsign = async()=>{
       const doc = await getUnsignedDoc(magic,account)
@@ -26,8 +24,6 @@ function Services() {
     const getSign = async()=>{
       const doc = await getSignedDoc(magic,account)
       return doc
-
-
     }
 
     getUnsign().then(v=>setUnsignedData(v))
@@ -38,6 +34,7 @@ function Services() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    minHeight:"400px",
     width: "auto",
     height: "auto",
     bgcolor: "background.paper",
@@ -70,19 +67,22 @@ function Services() {
         <Button sx={{border:"2px solid black",background:"white",marginTop:"1rem"}}
          onClick={handleOpen}
         >Create Card</Button>
-<Modal
+        <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-          
+            <Box>
+            <Box display="flex" >
             <TextField id="outlined-basic" label="Name" variant="outlined" />
             <Button sx={{border:"1px solid black",}}>Submit</Button>
+            </Box>
           <Button sx={{marginTop:"1rem",border:"1px solid black"}}
            onClick={handleAddSigner}
           >Add Signers</Button>
+            </Box>
           </Box>
         </Modal>
 

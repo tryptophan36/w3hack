@@ -1,107 +1,68 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
-import image1 from "../../public/favicon.ico"
-
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
-import SendTransaction from "@/components/magic/cards/SendTransactionsCard";
-
-import { Box, Container,Typography,Button,Modal} from "@mui/material";
-import axios from 'axios';
-import { createAndSignPresentationJWT, EthrDIDMethod } from "@jpmorganchase/onyx-ssi-sdk"
+import { Box, Container,Typography,Button,Modal,TextField} from "@mui/material";
+import {getUnsignedDoc,getSignedDoc} from "../utils/contractMethods.js"
+import { useMagicContext } from '@/components/magic/MagicProvider';
 
 function Services() {
+  const { magic } = useMagicContext();
+  const [signedData, setSignedData] = useState<any[]>([]);
+  const [unsignedData, setUnsignedData] = useState<any[]>([]);
+  const [account, setAccount] = useState<string | null>(null);
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setAccount(user);
+  }, []);
 
-  // const [products, setProducts] = useState<any[]>([]);
-  // useEffect(() => {
-  //   const fetchAllData = async () => {
-  //     fetch("https://fakestoreapi.com/products?limit=6")
-  //       .then((res) => res.json())
-  //       .then((data) =>{ 
-  //         console.log(data)
-  //         setProducts(data)});
-  //   };
-  //   fetchAllData();
-  // }, []);
+  
+  useEffect(()=>{
+    const getUnsign = async()=>{
+      const doc = await getUnsignedDoc(magic,account)
+      return doc
+
+    }
+    const getSign = async()=>{
+      const doc = await getSignedDoc(magic,account)
+      return doc
+
+
+    }
+
+    getUnsign().then(v=>setUnsignedData(v))
+    getSign().then(v=>setSignedData(v))
+  },[account])
   const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "auto",
+    height: "auto",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
-   const signedCard = {title:"Signed Card 1",image:image1,address:"####",signed:true}
-   const unsignedCard = {title:"Unsigned Card 1",image:image1,address:"####",signed:false}
-   const obj={cardData:signedCard,verified:true}
-   const obj2={cardData:unsignedCard,verified:unsignedCard.signed}
+  
+   const signedCards = signedData?.map(c=>{
+    return(
+      <ShopProduct key = {Number(c)} id = {Number(c)}/>
+    )
+   })
+   const UnsignedCards = unsignedData?.map(c=>{
+    return(
+      <ShopProduct key = {Number(c)} id = {Number(c)}/>
+    )
+   })
 
-  //states
-   const [open, setOpen] = React.useState(false);
-  const [verified,setVerified]= useState(false)
-
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  React.useEffect(()=>{
-    const config = {
-      "privateKey": "0x53533b6a0ca8969a63537adbb8f12e6cb76c03aae063d3768079a290d2e02ebd",
-      "vcs": ["eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiVmVyaWZpZWRDdXN0b21lciJdLCJjcmVkZW50aWFsU3ViamVjdCI6eyJuYW1lIjoiTmF0YWxpZSBHYXJjaWEifX0sInN1YiI6ImRpZDpldGhyOm1hdGljbXVtOjB4QzU0N0QxNjI1ZjQzYmExM2RDY2NiQjhCMzVENTViMmZCOTdiMjczNCIsImp0aSI6ImRpZDpldGhyOm1hdGljbXVtOjB4MDQyNDdiNDg4QTg4MjY2OTI0MjRiNmZkZmIzOTFmRjhkYmYwMWYyZSIsIm5iZiI6MTY5NjU5NDY3MCwiaXNzIjoiZGlkOmV0aHI6bWF0aWNtdW06MHhlNjlkQ2Y4OWY4NTBiNTY2YTY1NDdjMDU5ZDIzMTVmN2E2ZUYwMkNhIn0.KI793-0_HOnD4HKS2UlnYROd98tloGrBFmszfZS6PrvuhbohymyhrkvpZyXBi2K92a3DjpevFCP2tPBqEJJ--Q"],
-      "verifierUrl": "http://localhost:4000",
-      "web3": {
-          "web3HttpProvider": "https://rpc-mumbai.maticvigil.com/",
-          "didRegistryAddress": "0x33C695F89ab8F8f169fa652AD9a896C4e4AD34eb",
-          "name": "maticmum"
-      }
+  const handleAddSigner = ()=>{
+    
   }
-    async function setup() {
-      try {
-        const configaxios = {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-          }
-        };
-        
-          console.log("Creating Verifiable Presentation...");
-          const signingKey = config.privateKey
-          const vcs = config.vcs
-  
-          //get DID (did:ethr) from configured private key
-          const ethrDID = new EthrDIDMethod({
-              name: config.web3.name,
-              registry: config.web3.didRegistryAddress,
-              rpcUrl: config.web3.web3HttpProvider
-          })
-          const subjectDID = await ethrDID.generateFromPrivateKey(signingKey)
-  
-          //create VP
-          const vp = await createAndSignPresentationJWT(subjectDID, vcs)
-  
-          
-          //Hit claim endpoint of Onyx Issuance Service
-          console.log(`Sending Verifiable Presentation to Verifier at ${config.verifierUrl}`)
-          const verificationResponse = await axios.post(`${config.verifierUrl}/verify`, 
-          {presentation: vp},configaxios)
-          const verified = verificationResponse.data;
-  
-          //Log out relevant information
-          console.log(`Verification Result: ${verified}`)
-          return verified
-  
-      } catch (err) {
-          console.log(`Error encountered during setup. Aborting...`, err);
-          
-      }
-  
-  }
-  setup().then(v=>setVerified(v))
-
-  },[verified])
-
   return (
     <>
       <Navbar />
@@ -109,25 +70,25 @@ function Services() {
         <Button sx={{border:"2px solid black",background:"white",marginTop:"1rem"}}
          onClick={handleOpen}
         >Create Card</Button>
-        <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={style}>
-    <Typography id="modal-modal-title" variant="h6" component="h2">
-      Text in a modal
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    </Typography>
-  </Box>
-</Modal>
+<Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+          
+            <TextField id="outlined-basic" label="Name" variant="outlined" />
+            <Button sx={{border:"1px solid black",}}>Submit</Button>
+          <Button sx={{marginTop:"1rem",border:"1px solid black"}}
+           onClick={handleAddSigner}
+          >Add Signers</Button>
+          </Box>
+        </Modal>
 
         <Box >
         </Box>
-        <Box sx={{border:"1px solid black",width:"100%",background:"black", margin:"1rem"}}>
+        {signedData.length>0 && <Box sx={{border:"1px solid black",width:"100%",background:"black", margin:"1rem"}}>
         <Typography variant='h3' textAlign="center" color="white">Signed Cards</Typography>
         <Box
           sx={{
@@ -136,12 +97,11 @@ function Services() {
             justifyContent:"flex-start",
           }}
         >
-          {  
-          <ShopProduct {...obj}/>}
+          {signedCards}
         </Box>
-        </Box>
+        </Box>}
 
-        <Box sx={{border:"1px solid black",width:"100%",background:"black"}}>
+{   unsignedData.length>0 &&     <Box sx={{border:"1px solid black",width:"100%",background:"black"}}>
         <Typography variant='h3' textAlign="center" color="white">Unsigned Cards</Typography>
         <Box
           sx={{
@@ -150,10 +110,9 @@ function Services() {
             justifyContent:"flex-start",
           }}
         >
-          {  
-          <ShopProduct {...obj2}/>}
+          {UnsignedCards}
         </Box>
-        </Box>
+        </Box>}
         
       </div>
       <Box></Box>

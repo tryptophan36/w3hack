@@ -65,7 +65,7 @@ function Services() {
   }
 
   const create = async()=>{
-    const res= await createDoc(magic,meta)
+    const res= await createDoc(magic,meta,account)
     console.log(res)
 
   }

@@ -38,6 +38,32 @@ export const abi=[
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "_doc",
+				"type": "string"
+			}
+		],
+		"name": "CreateDocument",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_docId",
+				"type": "uint256"
+			}
+		],
+		"name": "signDocument",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"

@@ -14,7 +14,9 @@ import {
   BiconomyPaymaster,  
 } from '@biconomy/paymaster'
 import { ECDSAOwnershipValidationModule, DEFAULT_ECDSA_OWNERSHIP_MODULE } from "@biconomy/modules";
-const contractAddress = "0x7ec2b88bf05e93db00281ea64de97feefa1baf49"
+
+const contractAddress = "0x7eC2B88bf05E93dB00281Ea64DE97FEEFa1BAf49"
+
 
 const bundler= new Bundler({
     bundlerUrl: "https://bundler.biconomy.io/api/v2/80001/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",    
@@ -59,7 +61,7 @@ export const getSignedDoc =async (magic,address)=>{
     return docs
     
 }
-export const createDoc =async (magic,_doc)=>{
+export const createDoc =async (magic,_doc,creator)=>{
     const provider = new ethers.providers.Web3Provider(
         (magic )?.rpcProvider,
       "any"
@@ -70,7 +72,7 @@ export const createDoc =async (magic,_doc)=>{
         provider,
       )
     const smartAccount = await getAccount(magic)
-      const minTx = await contract?.populateTransaction.CreateDocument(_doc);
+      const minTx = await contract?.populateTransaction.CreateDocument(_doc,creator);
       console.log("create data",minTx.data);
       const tx1 = {
         to: contractAddress,

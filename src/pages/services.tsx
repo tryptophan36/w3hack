@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
 import ShopProduct from "../components/productcard/ShopProduct";
 import Navbar from "../components/navbar/Navbar";
 import SendTransaction from "@/components/magic/cards/SendTransactionsCard";

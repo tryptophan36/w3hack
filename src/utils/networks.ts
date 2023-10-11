@@ -3,6 +3,7 @@ export enum Network {
   POLYGON = 'polygon',
   ETHEREUM_GOERLI = 'ethereum-goerli',
   ETHEREUM = 'ethereum',
+  BASE_GOERLI = "base"
 }
 
 export const getNetworkUrl = () => {
@@ -15,7 +16,8 @@ export const getNetworkUrl = () => {
       return 'https://eth-goerli.g.alchemy.com/v2/3jKhhva6zBqwp_dnwPlF4d0rFZhu2pjD';
     case Network.ETHEREUM:
       return 'https://eth-mainnet.g.alchemy.com/v2/3jKhhva6zBqwp_dnwPlF4d0rFZhu2pjD';
-    
+      case Network.BASE_GOERLI:
+        return 'https://goerli.base.org';
     default:
       throw new Error('Network not supported');
   }
@@ -31,6 +33,8 @@ export const getChainId = () => {
       return 5;
     case Network.ETHEREUM:
       return 1;
+      case Network.BASE_GOERLI:
+      return 84531;
   }
 };
 
@@ -41,6 +45,7 @@ export const getNetworkToken = () => {
       return 'MATIC';
     case Network.ETHEREUM:
     case Network.ETHEREUM_GOERLI:
+      case Network.BASE_GOERLI:
       return 'ETH';
   }
 };
@@ -64,6 +69,8 @@ export const getNetworkName = () => {
       return 'Ethereum (Goerli)';
     case Network.ETHEREUM:
       return 'Ethereum (Mainnet)';
+      case Network.BASE_GOERLI:
+        return 'Base (Testnet)';
   }
 };
 
@@ -77,5 +84,7 @@ export const getBlockExplorer = (address: string) => {
       return `https://etherscan.io/address/${address}`;
     case Network.ETHEREUM_GOERLI:
       return `https://goerli.etherscan.io/address/${address}`;
+      case Network.BASE_GOERLI:
+        return `https://goerli.basescan.org/address/${address}`;
   }
 };
